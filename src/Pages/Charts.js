@@ -1,9 +1,40 @@
+import { useEffect, useState } from "react";
 import ApexCharts from "react-apexcharts"
 
-export function Charts({dataframe}) {
+export function Charts({dataframe, width}) {
 
-    console.log(dataframe);
+    console.log(width);
+
+    const [widthScreen, setWidthScreen] = useState()
+
+    useEffect(() => {
+        if(width > 700){
+            setWidthScreen(600)
+        } else if(width > 660 && width <= 700){
+            setWidthScreen(550)
+        } else if( width > 400 &&  width <= 660){
+            setWidthScreen(300)
+        }else if(width <= 400){
+            setWidthScreen(250)
+        }
+    })
+
     const options = {
+        responsive: [
+            {
+              breakpoint: 1000,
+              options: {
+                plotOptions: {
+                  bar: {
+                    horizontal: false
+                  }
+                },
+                legend: {
+                  position: "bottom"
+                }
+              }
+            }
+          ],
         legend : {
             show : true,
             position: 'bottom',
@@ -19,6 +50,8 @@ export function Charts({dataframe}) {
               },
         },
         chart: {
+            
+            width: "100%",
             toolbar:{
                 show : true,
                  tools: {
@@ -74,13 +107,14 @@ export function Charts({dataframe}) {
     // }
   return (
     <div>
-        <ApexCharts
+        {widthScreen && <ApexCharts
             options={options} 
             series={series} 
-            width={580}
+            width={widthScreen}
             
             
-        />
+        /> }
+        
     </div>
   )
 }

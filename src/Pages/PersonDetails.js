@@ -9,27 +9,23 @@ export function PersonDetails() {
 
     const [person, setPerson] = useState()
     const [metrics, setMetrics] = useState([])
+    const [metricsData, setMetricsData] = useState()
+    const [sum, setSum] = useState()
+    const [distanceTotal, setDistanceTotal] = useState()
+    const [steps, setSteps] = useState()
+    const [distance, setDistance] = useState()
+    
+    const [windowScreen, setWindowScreen] = useState()
 
     const id_initial = localStorage.getItem("a2Bc9E4fGhI1jKlM7nOpQr3tUvX5wYz8")
     console.log(id_initial);
 
-    // useEffect(() => {
-    //     const requisition = async () => {
-    //         const response = await axios.get('https://balance-dxhn.onrender.com/api/v1/profiles', {
-    //             headers : {
-    //                 "Content-Type" : "application/json"
-    
-    //             }
-    //         })
-    //             .then((data) => {
-    //                 setPerson(data.data.data[id_initial].attributes);
-    //                 console.log(data.data.data[id_initial].attributes.profile)
-    //             })
-    //             .catch(err => console.log(err))
-                
-    //         }
-    //     }
-    // , []);
+    useEffect(() => {
+      const windWidth = window.innerWidth;
+
+      setWindowScreen(windWidth)
+
+    });
 
     useEffect(() => {
         const requisition = async () => {
@@ -44,9 +40,9 @@ export function PersonDetails() {
             // Verifique se há dados antes de acessar data.data.data
             if (response.data && response.data.data && response.data.data[id_initial]) {
               setPerson(response.data.data[id_initial].attributes);
-              console.log(response.data.data[id_initial].attributes.profile);
+              // console.log(response.data.data[id_initial].attributes.profile);
             } else {
-              console.log('Dados não encontrados na resposta da API.');
+              // console.log('Dados não encontrados na resposta da API.');
             }
           } catch (error) {
             console.error('Erro na requisição:', error.message);
@@ -72,13 +68,13 @@ export function PersonDetails() {
             // Verifique se há dados antes de acessar data.data.data
             if (response.data && response.data.data) {
               const datametrics = response.data.data
-              console.log(datametrics);
+              // console.log(datametrics);
 
               setMetrics([])
   
               datametrics.map((item)=>{
                 setMetrics((prevMetrics) => [...prevMetrics, item.attributes.steps])
-                console.log(item.attributes.steps)
+                // console.log(item.attributes.steps)
               })
             } else {
               console.log('Dados não encontrados na resposta da API.');
@@ -93,6 +89,44 @@ export function PersonDetails() {
       },[id_initial]);
 
 
+
+      useEffect(() => {
+
+        console.log(metrics);
+        let objcMetrics = []
+        let stepPerDay = []
+        let distancePerDay = []
+      
+          let soma = 0;
+          let distanciaTotal = 0;
+          
+          for (let i = 0; i < metrics.length; i++){
+            soma += metrics[i]
+            stepPerDay = [...stepPerDay, metrics[i]]
+            distancePerDay = [...distancePerDay, metrics[i] * 0.82]
+            distanciaTotal += metrics[i] * 0.82
+
+          }
+
+         setSum(soma)
+         setSteps(stepPerDay)
+         setDistance(distancePerDay)
+         setDistanceTotal(distanciaTotal)
+
+          objcMetrics = [...objcMetrics, soma]
+          objcMetrics = [...objcMetrics, stepPerDay]
+          objcMetrics = [...objcMetrics, distancePerDay]
+          console.log(objcMetrics);
+          
+          setMetricsData(objcMetrics)
+          
+        }, [metrics])
+
+
+        // const  metricsStepsAndDistance = (data) => {
+        //  console.log(data);
+        // }
+
   return (
     <div className={style.content}>
         <div className={style.content_inside}>
@@ -103,23 +137,67 @@ export function PersonDetails() {
 
           <div className={style.content_details}>
 
+            
+
             {person && (
-              <div className={style.data}>
+              <div className={style.info_data}>
+                <div className={style.data}>
 
-                <h2>Detalhes</h2>
+                  <h2>Detalhes</h2>
 
-                <p><span>Nome: </span>{person.name}</p>
+                  <p><span>Nome: </span>{person.name}</p>
 
-                <p  className={style.display}><span>Sexo: </span> {person.profile.gender === 'male'? <p>Masculino</p> : <p>Feminino</p>  }</p>
-                <p><span>Peso: </span>{person.profile.weight}</p>
-                <p><span>Altura: </span>{(person.profile.height_in_cm / 100).toFixed(2)}</p>
+                  <p  className={style.display}><span>Sexo: </span> {person.profile.gender === 'male'? <p>Masculino</p> : <p>Feminino</p>  }</p>
+                  <p><span>Peso: </span>{person.profile.weight} <span> kg</span> </p>
+                  <p><span>Altura: </span>{(person.profile.height_in_cm / 100).toFixed(2)} <span> m</span> </p>
+                </div>
+
+                <div className={style.data}>
+                  {metricsData && (
+                    <div className={style.stepStyle}>
+                      {sum && 
+                        <h3><span>Passos totais: </span>{sum}</h3>
+                      
+                      }
+                      {distanceTotal && 
+                       <h3><span> Distância total: </span>{distanceTotal > 1000 ? (<> {distanceTotal / 1000} <span> km</span></> ) : (<> {distanceTotal} <span> m</span></> ) }</h3>
+                      
+                      }
+                      
+                            
+                      <table >
+                        <thead className={style.dados_thead}>
+                          <tr>
+                            <td>Dia</td>
+                            <td>Passos</td>
+                            <td>Distância</td>
+                          </tr>
+                        </thead>
+                        <tbody className={style.dados_tabela}>
+                          {
+
+                            Array.from({ length: 7 }, (_, i) => (
+                              <tr key={i}>
+                                <td>{i+1}</td>
+                                <td>{steps[i]}</td>
+                                <td>{distance[i]  > 1000 ? (<> {distance[i] / 1000} <span> km</span></> ) : (<> {distance[i]} <span> m</span></> )}</td>
+                              </tr>
+                            ))
+                          }
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+
+
+                </div>
               </div>
             )}
 
             <div className={style.statistic}>
               <h2>Estatísticas</h2>
               <div>
-                {metrics && <Charts dataframe={metrics}/>}
+                {metrics && <Charts width={windowScreen} dataframe={metrics}/>}
 
               </div>
             </div>

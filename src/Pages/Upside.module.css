@@ -2,6 +2,7 @@
     width: 100%;
     height: 140px;
     background-color: #f77825;
+    min-width: 660px;
 
     display: flex;
     align-items: center;
@@ -15,4 +16,12 @@
 
 .content svg {
     font-size: 40px;
+}
+
+@media (max-width: 660px){
+    .content{
+        width: 100%;
+        min-width: 400px;
+        
+    }
 }
