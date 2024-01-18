@@ -1,0 +1,40 @@
+.content{
+    padding-top: 20px;
+    overflow-x: auto;
+    padding: 10px;
+}
+
+.tabela{
+    text-align: center;
+    width: 100%;
+    min-width: 900px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-collapse: collapse;
+    
+}
+
+.tabela a{
+    text-decoration: none;
+}
+
+.tabela tr{
+    width: 100%;
+}
+
+.tabela td{
+    min-width: 100px;
+    height: 40px;
+}
+.thead td{
+    font-weight: bold;
+    font-size: 15px;
+}
+.tbody tr:hover{
+    background-color: #bc90bc;
+}
+.tbody tr{
+    border-bottom: 1px solid #5f5f5f;
+    font-size: 14px;
+    margin: 0;
+    background-color: #c2b2c2;
+}
