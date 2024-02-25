@@ -19,6 +19,7 @@
 
 .tabela tr{
     width: 100%;
+    cursor: pointer;
 }
 
 .tabela td{

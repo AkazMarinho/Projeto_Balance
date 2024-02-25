@@ -14,11 +14,12 @@ export function PersonDetails() {
     const [distanceTotal, setDistanceTotal] = useState()
     const [steps, setSteps] = useState()
     const [distance, setDistance] = useState()
+    const [imc, setImc] = useState()
     
     const [windowScreen, setWindowScreen] = useState()
 
     const id_initial = localStorage.getItem("a2Bc9E4fGhI1jKlM7nOpQr3tUvX5wYz8")
-    console.log(id_initial);
+    // console.log(id_initial);
 
     useEffect(() => {
       const windWidth = window.innerWidth;
@@ -40,7 +41,7 @@ export function PersonDetails() {
             // Verifique se há dados antes de acessar data.data.data
             if (response.data && response.data.data && response.data.data[id_initial]) {
               setPerson(response.data.data[id_initial].attributes);
-              // console.log(response.data.data[id_initial].attributes.profile);
+              console.log(response.data.data[id_initial].attributes);
             } else {
               // console.log('Dados não encontrados na resposta da API.');
             }
@@ -64,11 +65,10 @@ export function PersonDetails() {
               },
             });
 
-            
             // Verifique se há dados antes de acessar data.data.data
             if (response.data && response.data.data) {
-              const datametrics = response.data.data
-              // console.log(datametrics);
+              const datametrics = response.data.data.slice(-7)
+              console.log(response.data);
 
               setMetrics([])
   
@@ -84,15 +84,37 @@ export function PersonDetails() {
           }
         };
     
-        // Chame a função de requisição
         data_metrics();
+
+        const imc = async () => {
+            try {
+              const id =  id_initial + 1
+              const response = await axios.get(`https://balance-dxhn.onrender.com/api/v1/bmi_calculations/${id}`, {
+                headers: {
+                  'Content-Type': 'application/json',
+                }
+              })
+
+              if (response.data) {
+                setImc(response.data.data.attributes.imc);
+              }
+
+            } catch (error) {
+              console.log(error);
+            }
+          }
+          
+
+        imc();
+
+
       },[id_initial]);
 
 
 
       useEffect(() => {
 
-        console.log(metrics);
+        // console.log(metrics);
         let objcMetrics = []
         let stepPerDay = []
         let distancePerDay = []
@@ -116,28 +138,18 @@ export function PersonDetails() {
           objcMetrics = [...objcMetrics, soma]
           objcMetrics = [...objcMetrics, stepPerDay]
           objcMetrics = [...objcMetrics, distancePerDay]
-          console.log(objcMetrics);
+          // console.log(objcMetrics);
           
           setMetricsData(objcMetrics)
           
         }, [metrics])
 
 
-        // const  metricsStepsAndDistance = (data) => {
-        //  console.log(data);
-        // }
 
   return (
     <div className={style.content}>
         <div className={style.content_inside}>
-
-            {/* <div className={styleBalls.content_balls}>
-                <span className={`${styleBalls.balls}`}></span>
-            </div> */}
-
           <div className={style.content_details}>
-
-            
 
             {person && (
               <div className={style.info_data}>
@@ -150,6 +162,7 @@ export function PersonDetails() {
                   <p  className={style.display}><span>Sexo: </span> {person.profile.gender === 'male'? <p>Masculino</p> : <p>Feminino</p>  }</p>
                   <p><span>Peso: </span>{person.profile.weight} <span> kg</span> </p>
                   <p><span>Altura: </span>{(person.profile.height_in_cm / 100).toFixed(2)} <span> m</span> </p>
+                  <p><span>Dias de exercicios: </span>{person.profile.workout_days_frequency}</p>
                 </div>
 
                 <div className={style.data}>
@@ -163,8 +176,12 @@ export function PersonDetails() {
                        <h3><span> Distância total: </span>{distanceTotal > 1000 ? (<> {distanceTotal / 1000} <span> km</span></> ) : (<> {distanceTotal} <span> m</span></> ) }</h3>
                       
                       }
+
+                      {imc && 
+                      <h3><span> IMC: </span>{imc}</h3>
+                    }
                       
-                            
+                          
                       <table >
                         <thead className={style.dados_thead}>
                           <tr>

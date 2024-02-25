@@ -3,7 +3,6 @@ import ApexCharts from "react-apexcharts"
 
 export function Charts({dataframe, width}) {
 
-    console.log(width);
 
     const [widthScreen, setWidthScreen] = useState()
 
