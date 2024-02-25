@@ -41,7 +41,6 @@ export function PersonDetails() {
             // Verifique se há dados antes de acessar data.data.data
             if (response.data && response.data.data && response.data.data[id_initial]) {
               setPerson(response.data.data[id_initial].attributes);
-              console.log(response.data.data[id_initial].attributes);
             } else {
               // console.log('Dados não encontrados na resposta da API.');
             }
@@ -68,13 +67,11 @@ export function PersonDetails() {
             // Verifique se há dados antes de acessar data.data.data
             if (response.data && response.data.data) {
               const datametrics = response.data.data.slice(-7)
-              console.log(response.data);
 
               setMetrics([])
   
               datametrics.map((item)=>{
-                setMetrics((prevMetrics) => [...prevMetrics, item.attributes.steps])
-                // console.log(item.attributes.steps)
+                setMetrics((prevMetrics) => [...prevMetrics, item.attributes.steps]);
               })
             } else {
               console.log('Dados não encontrados na resposta da API.');
@@ -94,30 +91,23 @@ export function PersonDetails() {
                   'Content-Type': 'application/json',
                 }
               })
-
               if (response.data) {
                 setImc(response.data.data.attributes.imc);
               }
-
             } catch (error) {
-              console.log(error);
+              console.log("No data");
             }
           }
-          
-
         imc();
-
-
       },[id_initial]);
 
-
-
       useEffect(() => {
-
-        // console.log(metrics);
         let objcMetrics = []
         let stepPerDay = []
         let distancePerDay = []
+
+        console.log(metrics);
+
       
           let soma = 0;
           let distanciaTotal = 0;
@@ -141,6 +131,7 @@ export function PersonDetails() {
           // console.log(objcMetrics);
           
           setMetricsData(objcMetrics)
+          console.log(metricsData);
           
         }, [metrics])
 
@@ -151,41 +142,44 @@ export function PersonDetails() {
         <div className={style.content_inside}>
           <div className={style.content_details}>
 
+            <h2>Dados do usuário</h2>
             {person && (
               <div className={style.info_data}>
                 <div className={style.data}>
+                  <h3>Dados pessoais</h3>
+                  <div><span>Nome: </span>{person.name}</div>
+                  <div  className={style.display}><span>Sexo: </span> {person.profile.gender === 'male'? <span>Masculino</span> : <span>Feminino</span>  }</div>
+                  <div><span>Peso: </span>{person.profile.weight} <span> kg</span> </div>
+                  <div><span>Altura: </span>{(person.profile.height_in_cm / 100).toFixed(2)} <span> m</span> </div>
+                </div>
 
-                  <h2>Detalhes</h2>
+                <div  className={style.data}>
+                <h3>Dados gerais</h3>
 
-                  <p><span>Nome: </span>{person.name}</p>
+                  <div>
+                    <span>Passos totais: </span>{sum ? sum : 0} <span>Passos</span>
+                  </div>
 
-                  <p  className={style.display}><span>Sexo: </span> {person.profile.gender === 'male'? <p>Masculino</p> : <p>Feminino</p>  }</p>
-                  <p><span>Peso: </span>{person.profile.weight} <span> kg</span> </p>
-                  <p><span>Altura: </span>{(person.profile.height_in_cm / 100).toFixed(2)} <span> m</span> </p>
-                  <p><span>Dias de exercicios: </span>{person.profile.workout_days_frequency}</p>
+                  <div>
+                    <span> Distância total: {distanceTotal !=0 ? distanceTotal > 1000 ? (<> {distanceTotal / 1000} <span> km</span></> ) : (<> {distanceTotal} <span> m</span></> ) : <span> Sem dados</span>} </span> 
+                  </div>
+
+                  {imc && 
+                    <div><span> IMC: </span>{imc}</div>
+                  }
+                  <div><span>Dias de exercicios: </span>{person.profile.workout_days_frequency}</div>
                 </div>
 
                 <div className={style.data}>
-                  {metricsData && (
-                    <div className={style.stepStyle}>
-                      {sum && 
-                        <h3><span>Passos totais: </span>{sum}</h3>
-                      
-                      }
-                      {distanceTotal && 
-                       <h3><span> Distância total: </span>{distanceTotal > 1000 ? (<> {distanceTotal / 1000} <span> km</span></> ) : (<> {distanceTotal} <span> m</span></> ) }</h3>
-                      
-                      }
+                <h3>Passos por dia</h3>
 
-                      {imc && 
-                      <h3><span> IMC: </span>{imc}</h3>
-                    }
+                  {metricsData[0] >0 ? (
+                    <div className={style.stepStyle}>
                       
-                          
                       <table >
                         <thead className={style.dados_thead}>
                           <tr>
-                            <td>Dia</td>
+                            <td className={style.lengthTd}>Dia</td>
                             <td>Passos</td>
                             <td>Distância</td>
                           </tr>
@@ -195,7 +189,7 @@ export function PersonDetails() {
 
                             Array.from({ length: 7 }, (_, i) => (
                               <tr key={i}>
-                                <td>{i+1}</td>
+                                <td className={style.lengthTd}>{i+1}</td>
                                 <td>{steps[i]}</td>
                                 <td>{distance[i]  > 1000 ? (<> {distance[i] / 1000} <span> km</span></> ) : (<> {distance[i]} <span> m</span></> )}</td>
                               </tr>
@@ -204,7 +198,12 @@ export function PersonDetails() {
                         </tbody>
                       </table>
                     </div>
-                  )}
+                  ):
+                  (
+                    <span>Sem dados</span>
+                  )
+                  
+                  }
 
 
                 </div>
@@ -212,9 +211,13 @@ export function PersonDetails() {
             )}
 
             <div className={style.statistic}>
-              <h2>Estatísticas</h2>
+              <h2>Gráfico</h2>
               <div>
-                {metrics && <Charts width={windowScreen} dataframe={metrics}/>}
+                
+                {metrics.length > 0 ? 
+                  <Charts width={windowScreen} dataframe={metrics}/> : 
+                  <span>Sem dados</span>
+                }
 
               </div>
             </div>
