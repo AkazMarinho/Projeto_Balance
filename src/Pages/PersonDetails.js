@@ -16,17 +16,9 @@ export function PersonDetails() {
     const [distance, setDistance] = useState()
     const [imc, setImc] = useState()
     
-    const [windowScreen, setWindowScreen] = useState()
 
     const id_initial = localStorage.getItem("a2Bc9E4fGhI1jKlM7nOpQr3tUvX5wYz8")
     // console.log(id_initial);
-
-    useEffect(() => {
-      const windWidth = window.innerWidth;
-
-      setWindowScreen(windWidth)
-
-    });
 
     useEffect(() => {
         const requisition = async () => {
@@ -41,6 +33,7 @@ export function PersonDetails() {
             // Verifique se há dados antes de acessar data.data.data
             if (response.data && response.data.data && response.data.data[id_initial]) {
               setPerson(response.data.data[id_initial].attributes);
+              console.log(response.data.data);
             } else {
               // console.log('Dados não encontrados na resposta da API.');
             }
@@ -141,12 +134,11 @@ export function PersonDetails() {
     <div className={style.content}>
         <div className={style.content_inside}>
           <div className={style.content_details}>
-
             <h2>Dados do usuário</h2>
             {person && (
               <div className={style.info_data}>
                 <div className={style.data}>
-                  <h3>Dados pessoais</h3>
+                  <h3>DADOS PESSOAIS</h3>
                   <div><span>Nome: </span>{person.name}</div>
                   <div  className={style.display}><span>Sexo: </span> {person.profile.gender === 'male'? <span>Masculino</span> : <span>Feminino</span>  }</div>
                   <div><span>Peso: </span>{person.profile.weight} <span> kg</span> </div>
@@ -154,7 +146,7 @@ export function PersonDetails() {
                 </div>
 
                 <div  className={style.data}>
-                <h3>Dados gerais</h3>
+                  <h3>DADOS GERAIS</h3>
 
                   <div>
                     <span>Passos totais: </span>{sum ? sum : 0} <span>Passos</span>
@@ -167,15 +159,18 @@ export function PersonDetails() {
                   {imc && 
                     <div><span> IMC: </span>{imc}</div>
                   }
-                  <div><span>Dias de exercicios: </span>{person.profile.workout_days_frequency}</div>
+
+                  <div>
+                    <span>Dias de exercicios: </span>
+                    {person.profile.workout_days_frequency}
+                  </div>
+
                 </div>
 
                 <div className={style.data}>
-                <h3>Passos por dia</h3>
-
+                <h3>PASSOS POR DIA</h3>
                   {metricsData[0] >0 ? (
                     <div className={style.stepStyle}>
-                      
                       <table >
                         <thead className={style.dados_thead}>
                           <tr>
@@ -186,7 +181,6 @@ export function PersonDetails() {
                         </thead>
                         <tbody className={style.dados_tabela}>
                           {
-
                             Array.from({ length: 7 }, (_, i) => (
                               <tr key={i}>
                                 <td className={style.lengthTd}>{i+1}</td>
@@ -215,21 +209,22 @@ export function PersonDetails() {
               <div>
                 
                 {metrics.length > 0 ? 
-                  <Charts width={windowScreen} dataframe={metrics}/> : 
+                  <Charts 
+                   dataframe={metrics}/> : 
                   <span>Sem dados</span>
                 }
 
               </div>
+              <div className={style.but}>
+                  <Link to='/'>
+                      <button>
+                          Voltar
+                      </button>
+                  </Link>
+              </div>
             </div>
           </div>
 
-          <div>
-              <Link to='/'>
-                  <button>
-                      Voltar
-                  </button>
-              </Link>
-          </div>
 
         </div>
 

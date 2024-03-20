@@ -1,16 +1,44 @@
 .content{
     padding-top: 20px;
-    overflow-x: auto;
+    /* overflow-x: auto; */
     padding: 10px;
+}
+
+.search{
+    max-width: 350px;
+    width: 100%;
+    position: relative;
+}
+
+.search input{
+width: 100%;
+    outline: none;
+    border: 1px solid #a8a8a8;
+    height: 30px;
+    padding-left: 25px;
+    border-radius: 15px;
+}
+
+.search svg{
+    position: absolute;
+    top: 7px;
+    left: 5px;
+    font-size: 15px;
+    color: #757575;
+}
+
+.tableCcntent{
+width: 100%;
+    /* overflow-x: auto; */
 }
 
 .tabela{
     text-align: center;
     width: 100%;
-    min-width: 900px;
+    min-width: 600px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     border-collapse: collapse;
-    
+    /* overflow-x: auto; */
 }
 
 .tabela a{
@@ -20,22 +48,74 @@
 .tabela tr{
     width: 100%;
     cursor: pointer;
+
 }
 
 .tabela td{
-    min-width: 100px;
+    /* min-width: 100px; */
     height: 40px;
 }
 .thead td{
     font-weight: bold;
     font-size: 15px;
 }
+
+.thead tr:last-child{
+    display: none;
+}
+
 .tbody tr:hover{
-    background-color: #bc90bc;
+    background-color: #c2b2c2;
+    border-left: 4px solid  #863b86;
+    border-right: 4px solid  #863b86;
 }
 .tbody tr{
     border-bottom: 1px solid #5f5f5f;
     font-size: 14px;
     margin: 0;
-    background-color: #c2b2c2;
+}
+
+.tbody td:last-child{
+    display: none;
+}
+
+
+@media (max-width: 600px){
+    .tabela{
+        min-width: auto;
+        margin-top: 15px;
+    }
+
+    .tabela td{
+        height: 0;;
+    }
+
+    .thead tr{
+        margin-bottom: 30px;
+    }
+
+    .thead tr{
+        display: none;
+    }
+
+    .thead tr:last-child{
+        display: block;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+    }
+    
+    .thead td{
+        width: 100%;
+    }
+    .tbody tr {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tbody td{
+        height: auto;
+        padding: 6px;
+    }
+
 }

@@ -1,9 +1,7 @@
-import React from 'react'
-import { Upside } from './Upside'
+import React from 'react';
 
-import style from './Home.module.css'
-import { ListPerson } from './ListPerson'
-import { Link } from 'react-router-dom'
+import style from './Home.module.css';
+import { ListPerson } from './ListPerson';
 
 export function Home() {
   return (

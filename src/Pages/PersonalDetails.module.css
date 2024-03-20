@@ -1,31 +1,38 @@
 .content{
     width: 100%;
     height: 100%;
-    min-width: 660px;
+    /* min-width: 660px; */
     position: relative;
     /* background-color: #d8e6ea; */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     
 }
 
-.content button{
+.but{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.but button{
     width: 200px;
     height: 50px;
-    background-color: #c1d4f6;
+    background-color: #2a63c6;
     border: none;
     border-radius: 8px;
     font-size: 16px;
     font-weight: bold;
-    color: #333333;
+    color: #ffffff;
+    cursor: pointer;
+    margin: 0 auto;
 }
-.content button:hover{
-    background-color: rgb(170, 180, 198);
+.but button:hover{
+    background-color: #1e54b3;
 }
 
 .content_inside{
     width: 100%;
-    /* border-radius: 4px; */
-    padding: 0 0 20px 0;
     z-index: 5;
     background-color: #ffebff;
 
@@ -36,7 +43,7 @@
 }
 
 .content_details{
-    padding: 10px 0;
+    padding: 10px 0 0;
     width: 100%;
     /* display: flex; */
     flex-direction: column;
@@ -47,14 +54,8 @@
     margin-left: 10px;
 }
 .data{
-    /* margin-top: 20px; */
-    /* width: 100%; */
     height: 100%;
-    color: #000000;
-    
-    
-    min-width: 300px;
-    /* border-radius: 4px; */
+    color: #282828;
     padding: 30px;
     /* background-image: linear-gradient(90deg, #020202, #424242); */
     /* background-color: #424242; */
@@ -69,7 +70,6 @@
 
 .data h3{
     font-size: 19px;
-    text-decoration: underline;
     margin-left: -15px;
     margin-bottom: 10px;
 
@@ -92,11 +92,9 @@
 
 .statistic{
     width: 100%;
-    background-color: #c1d4f6;
-    margin: 20px 0 30px 0;
+    background-color: #d3deef;
+    margin: 20px 0 0 0;
     padding: 10px;
-    overflow-x: auto;
-
 }
 
 .statistic h2{
@@ -108,19 +106,17 @@
 }
 
 .statistic > div {
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+max-width: 760px;
+margin: 35px auto;
+opacity: 0.9;
+border-radius: 40px;
     
 }
 
 .info_data{
     display: flex;
-    /* align-items: center; */
     justify-content: center;
     flex-wrap: wrap;
-    /* gap: 30px; */
 }
 
 .data table{
@@ -182,13 +178,18 @@
     .content{
         width: 100%;
         height: 100%;
-        min-width: 400px;
+        /* min-width: 400px; */
         
     }
 
     .data table{
         table-layout: fixed;
         border-collapse: collapse;
-        min-width: 400px;
+        /* min-width: 400px; */
+    }
+
+    .but button{
+        width: 150px;
+        /* margin-bottom: 40px; */
     }
 }
