@@ -75,7 +75,7 @@ export function Charts({dataframe, width}) {
       //   }
       chart: {
         width: "100%",
-        height: 380,
+        height: 480,
         type: "line",
         toolbar:{
           show : true,
@@ -100,32 +100,65 @@ export function Charts({dataframe, width}) {
             fontWeight:  'bold',
             align: 'center',
           },
-    },
+      },
       plotOptions: {
         bar: {
           horizontal: true
         }
       },
       dataLabels: {
-        enabled: false
+        enabled: true,
+         style: {
+          fontSize: '10px',
+          fontWeight: 'bold',
+        },
+        background: {
+          enabled: true,
+          foreColor: '#000',
+          borderRadius: 2,
+          padding: 4,
+          opacity: 0.9,
+          borderWidth: 1,
+          borderColor: '#00f'
+        },
       },
       stroke: {
-        width: 2,curve: 'smooth',
+        width: 2,
+        curve: 'smooth',
         colors: ["#000"]
       },
       xaxes : {
           categories : [1,2,3,4,5,6,7],
           label : 'Dias'
       },
-              yaxes : {
-            tooltip: true
+      labels: ["dia 1", "dia 2", "dia 3", "dia 4", "dia 5", "dia 6", "dia 7"],
+      yaxes : {
+        tooltip: true
+      },
+      // legend: {
+      //   position: "right",
+      //   verticalAlign: "top",
+      //   containerMargin: {
+      //     left: 35,
+      //     right: 60
+      //   }
+      // },
+      legend : {
+        show : true,
+        position: 'bottom',
+        fontSize: '12px',
+        // color: '#0ff',
+        showForSingleSeries: true,
+        markers: {
+          strokeColor: '#00f',
+          width: 10,
+          height: 10,
+          strokeWidth: 20,
+          radius: 10,
         },
-      legend: {
-        position: "right",
-        verticalAlign: "top",
-        containerMargin: {
-          left: 35,
-          right: 60
+        itemMargin: {
+          horizontal: -1,
+          vertical: 0
         }
       },
       responsive: [
@@ -145,8 +178,8 @@ export function Charts({dataframe, width}) {
       ],
       markers: {
         size: 4,
-        colors: "#00f",
-        strokeColors: '#ff000055',
+        colors: "#fff",
+        strokeColors: '#ff00ff55',
         strokeWidth: 2,
         strokeOpacity: 0.9,
         strokeDashArray: 0,
@@ -175,8 +208,7 @@ export function Charts({dataframe, width}) {
 
       <ApexCharts
           options={options} 
-          series={series}   
-          style={{borderRadius: '40px'}}         
+          series={series}      
       />
     </div>
   )
