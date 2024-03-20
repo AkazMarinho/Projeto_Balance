@@ -5,7 +5,7 @@ import RoutesApp from "./routes/Routes";
 
 function App() {
   return (
-    <div className="App">
+    <div style={{width: '100%'}}>
       <Upside/>
       
       <RoutesApp/>
