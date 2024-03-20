@@ -14,26 +14,26 @@ O projeto é desenvolvido em [React.js](https://react.dev/), sendo utilizados bi
   
 Mostra as pessoas cadastradas no sistema, com informações de nome, email e se praticam atividades físicas, sendo essa lista clicável para direcionar para os detalhes da pessoa.
 <divalign="center">
-  <img width="900px" src="https://github.com/AkazMarinho/Projeto_Balance/assets/58227029/0b35b6d8-344b-4b18-80d3-2c31b1659afa"/>
+  <img width="900px" src="https://github.com/AkazMarinho/Projeto_Balance/assets/58227029/a659f492-7ad0-4610-8a5c-e4d20a71215a"/>
 </div>
 
 A versão mobile conta apenas com nome e email
 
 <div align="center">
-  <img height="600px" src="https://github.com/AkazMarinho/Projeto_Balance/assets/58227029/19cd6bd1-a2ef-441a-9e53-a846335f53b3"/>
+  <img height="600px" src="https://github.com/AkazMarinho/Projeto_Balance/assets/58227029/cbb7843b-ea5b-49bc-a12f-958208be79b2"/>
 </div>
 
 - Dados individuais
 
-Os dados informados são relativos ao que sçao recolhidos pelo aplocativo, como dados pessois, dados de distacia total, IMC e passos por dia, uma vez que os dados que são vistos são sempre dos ultimos 7 dias.
+Os dados informados são relativos ao que seçao recolhidos pelo aplicativo, como dados pessoais, dados de distância total, IMC e passos por dia, uma vez que os dados que são vistos são sempre dos últimos 7 dias.
 
 <divalign="center">
-  <img width="900px" src="https://github.com/AkazMarinho/Projeto_Balance/assets/58227029/1f3cb7fe-22f5-4cbb-a4cb-363d1413913a"/>
+  <img width="900px" src="https://github.com/AkazMarinho/Projeto_Balance/assets/58227029/e4d88f59-9772-42b4-9480-162c6a773699"/>
 </div>
 
 
 <div align="center">
-  <img height="600px" src="https://github.com/AkazMarinho/Projeto_Balance/assets/58227029/2b1ae369-aacc-4e1e-afc9-27f0a61d931e"/>
+  <img height="600px" src="https://github.com/AkazMarinho/Projeto_Balance/assets/58227029/131a4778-6fa4-4639-b8ff-f41a9ca2b325"/>
 </div>
 
 ## Dependências necessárias e versão
