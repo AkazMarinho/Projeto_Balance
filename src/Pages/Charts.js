@@ -92,19 +92,18 @@ export function Charts({dataframe, width}) {
         },
         background : "#22bc5466",
       },
-      title : {
-        display : true,
-        text : "Quantidade de Passos x Dia",
-        style: {
-            fontSize:  '12px',
-            fontWeight:  'bold',
-            align: 'center',
-          },
-      },
       plotOptions: {
         bar: {
           horizontal: true
         }
+      },
+      title: {
+        text: "Quantidade de Passos por Dia",
+        align: 'center',
+        style: {
+          fontSize: '16px',
+          fontWeight: 'bold',
+        },
       },
       dataLabels: {
         enabled: true,
@@ -122,30 +121,35 @@ export function Charts({dataframe, width}) {
           borderColor: '#00f'
         },
       },
+      xaxis: {
+        categories: ["dia 1", "dia 2", "dia 3", "dia 4", "dia 5", "dia 6", "dia 7"],
+        title: {
+          text: 'Dias da Semana',
+          style: {
+            fontSize: '12px',
+            fontWeight: 'bold'
+          }
+        }
+      },
+      yaxis: {
+        tooltip: {
+          enabled: true
+        },
+        title: {
+          text: 'quantidades de passos',
+          style: {
+            fontSize: '12px',
+            fontWeight: 'bold'
+          }
+        }},
       stroke: {
         width: 2,
         curve: 'smooth',
         colors: ["#000"]
       },
-      xaxes : {
-          categories : [1,2,3,4,5,6,7],
-          label : 'Dias'
-      },
-      labels: ["dia 1", "dia 2", "dia 3", "dia 4", "dia 5", "dia 6", "dia 7"],
-      yaxes : {
-        tooltip: true
-      },
-      // legend: {
-      //   position: "right",
-      //   verticalAlign: "top",
-      //   containerMargin: {
-      //     left: 35,
-      //     right: 60
-      //   }
-      // },
       legend : {
         show : true,
-        position: 'bottom',
+        position: 'top',
         fontSize: '12px',
         // color: '#0ff',
         showForSingleSeries: true,

@@ -22,6 +22,7 @@ export function ListPerson() {
     
             // Verifique se há dados antes de acessar data.data.data
             if (response.data && response.data.data) {
+
                 setListPerson(response.data.data);
             } else {
               console.log('Dados não encontrados na resposta da API.');
@@ -55,14 +56,32 @@ export function ListPerson() {
                 <tr>
                     <td>NOME</td>
                     <td>EMAIL</td>
-                    <td>FAZ ATIVIDADES</td>
                 </tr>
                 <tr>
                   <td>Dados</td>
                 </tr>
             </thead>
             <tbody className={style.tbody}>
-              {listPerson.length > 0 ? 
+              { listPerson.length > 0 ?
+                listPerson.filter(person => 
+                  (person.attributes.name && person.attributes.name.toLowerCase().includes(search.toLowerCase())) ||
+                  (person.attributes.email && person.attributes.email.toLowerCase().includes(search.toLowerCase()))
+                ).map((person, index) => (
+                  <tr key={index} onClick={() =>  {
+                      localStorage.setItem("a2Bc9E4fGhI1jKlM7nOpQr3tUvX5wYz8" ,  index)
+                      navigate('/a7Rb2CkL9pI3qY8')
+                      }} >
+                      <td>{person.attributes.name}</td>
+                      <td>{person.attributes.email}</td>
+                  </tr>
+                  )
+                )
+                :
+                (
+                  <span>Aguarde...</span>
+                )
+              }
+              {/* {listPerson.length > 0 ? 
                 listPerson.filter(person => 
                   person.attributes.name.toLowerCase().includes(search.toLowerCase()) ||
                   person.attributes.email.toLowerCase().includes(search.toLowerCase())
@@ -82,7 +101,7 @@ export function ListPerson() {
                 (
                   <span>Aguarde...</span>
                 )
-              }
+              } */}
             </tbody>
         </table>
       </div>
