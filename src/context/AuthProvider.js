@@ -27,10 +27,12 @@ export function AuthProvider({children}) {
                 }
             )
 
-            if(response.status === 200){
+            if(response.status === 200 && pass === 'y56EnYI47U'){
                 localStorage.setItem("b3Cd8E5gHiJ2kLmN9oPqR6sTuV4wXyZ7" ,  true)
                 Navigate('./')
                 window.location.reload();
+            } else {
+                setErrorResponse('error')
             }
             
         } catch (error) {
